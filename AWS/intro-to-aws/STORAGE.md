@@ -13,6 +13,13 @@
 2. S3 Standard-Infrequent
 3. S3 One Zone Infrequent
 4. S3 Glacier
+   * Data archival and long-term backup
+   * $1/TB/month
+   * Query-in-place functionality
+   * Three retrieval options:
+     1. Standard - low cost
+     2. Bulk retrieval - cost-effective for large amounts
+     3. Expedited - urgent retrieval
 5. S3 Glacier Deep Archive
 6. S3 Intelligent Tireing
 
