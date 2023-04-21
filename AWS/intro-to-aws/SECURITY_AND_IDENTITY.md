@@ -25,5 +25,25 @@
 2. **AWS Single Sign-on (SSO)**: Implement cloud single sign-on. 
 3. **Amazon Cognito**: Manage identity inside applications.
 4. **AWS Directory Service**: Implement and manage Microsoft Active Directory.
+   * Managed Microsoft Active Directory
+   * Managed Simple Active Directory
+   * AD Connector
+   * Compatible with other AWS services
+     * Amazon Chime
+     * Amazon Connect
+     * Amazon EC2 Instances
+     * Amazon FSx for Windows File Server
+     * Amazon QuickSight
+     * Amazon RDS for MySQL
+     * Amazon RDS for Oracle
+     * Amazon RDS for PostgresSQL
+     * Amazon RDS for SQL Server
+     * Amazon Single Sign On
+     * Amazon WorkDocs
+     * Amazon WorkMail
+     * Amazon WorkSpaces
+     * AWS Client VPN
+     * AWS Management Console
+   * Distributed service with automatic fail-over
 5. **AWS Organization**: Centrally govern ana manage multiple AWS account in one place.
 
