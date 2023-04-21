@@ -1,5 +1,9 @@
 ### Instances
 1. **Amazon EC2**: Secure and resizable virtual machines in the cloud.
+   * Run virtual computers
+   * Choose from various types with differing CPU, RAM and storage
+   * Different optimizations are available as well
+   * Payu by the hour of second
 2. **Amazon EC2 Spot**: Run fault-tolerant workloads at 90% off the normal price. 
 3. **Amazon EC2 Auto Scaling**: Automatically add or remove capacity based on demand.
 4. **Amazon Lightsail**: An easy-to-use cloud platform to build applications and websites.
