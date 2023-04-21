@@ -1,5 +1,7 @@
 ### File Storage
 1. **Amazon EFS**: A scalable, elastic and cloud native Network file system.
+   * Highly available and durable
+   * Built-in protection from AZ outages and other failures
 2. **Amazon FSx for Windows Filer Server**: A fully managed file storage for Windows Server.
 
 ### Block Storage
@@ -33,5 +35,8 @@
 
 ### Data Transfer
 1. **AWS Storage Gateway**: Provide on-premises access to unlimited cloud storage.
+   * **File Gateway**: Gives you SMB and NFS interfaces to S3
+   * **Tape Gateway**: Presents a virtual tape library on your local network
+   * **Volume Gateway**: Presents an iSCSI block storage volume to your on-premises applications
 2. **AWS DataSync**: Easily transfer data to and from AWS up to 10 times faster than normal.
 3. **AWS Transfer Family**: Transfer files to Amazon S3 using SFTP, FTP and FTPS.
