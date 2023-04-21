@@ -17,12 +17,12 @@
 6. S3 Intelligent Tireing
 
 |                        | Amazon S3 Standard | Amazon S3 Intelligent-Tiering | Amazon S3 Standard-Infrequent Access | Amazon S3 One Zone-Infrequent Access | Amazon S3 Glacier | Amazon S3 Glacier Deep Archive |
-| --- |--------------------| --- | --- | --- | --- | --- |
-| Availability Zones     | `>=3`                | `>=3  `                         | `>=3`                                 | 1                                    | `>=3`              | `>=3`                           |
-| Minimum Storage Charges| N/A                | Per GB per Month (billed daily, with a 30-day minimum) | Per GB per Month (billed daily, with a 30-day minimum) | Per GB per Month (billed daily, with a 30-day minimum) | Per GB per Month (billed daily, with a 90-day minimum) | Per GB per Month (billed daily, with a 180-day minimum) |
-| Retrieval Fees         | N/A                | N/A                            | Per GB                              | Per GB                              | Per GB           | Per GB                        |
-| Durability             | 99.999999999%      | 99.999999999%                  | 99.999999999%                        | 99.999999999%                        | 99.999999999%    | 99.999999999%                  |
-| Available SLA          | 99.9%              | 99.9%                          | 99.9%                                | 99.5%                                | 99.9%            | 99.9%                         |
+| --- |--------------------|-------------------------------| --- | --- |-------------------|--------------------------------|
+| Availability Zones     | `>=3`                | `>=3  `                       | `>=3`                                 | 1                                    | `>=3`             | `>=3`                          |
+| Minimum Storage Charges| N/A                | 30 Days                       | 30 Days      | 30 Days      | 90 Days           | 180 Days                       |
+| Retrieval Fees         | N/A                | N/A                           | Per GB                              | Per GB                              | Per GB            | Per GB                         |
+| Durability             | 99.999999999%      | 99.999999999%                 | 99.999999999%                        | 99.999999999%                        | 99.999999999%     | 99.999999999%                  |
+| Available SLA          | 99.9%              | 99.9%                         | 99.9%                                | 99.5%                                | 99.9%             | 99.9%                          |
 
 ### Data Transfer
 1. **AWS Storage Gateway**: Provide on-premises access to unlimited cloud storage.
