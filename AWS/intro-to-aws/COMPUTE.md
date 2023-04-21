@@ -15,6 +15,9 @@
 
 ### Serverless
 1. **AWS Lambda**: Compute service to run code without servers.
+   * Serverless compute service
+   * Runs your code in response to events
+   * Runs your code for you "somewhere"
 
 ### Edge
 1. **AWS Outposts**: Run AWS services on-premises.
