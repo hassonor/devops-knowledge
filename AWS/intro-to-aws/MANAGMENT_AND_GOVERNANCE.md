@@ -11,6 +11,9 @@
 
 ### Operation Services
 * **Amazon CloudWatch**: Observe your services via metrics and logging
+  * Collect metrics from services
+  * Integrates with 70+ AWS services
+  * Lots of pre-defined metrics
 * **AWS Config**: Record and evaluate configurations of AWS resources
 * **AWS CloudTrail**: Track all user activity across your AWS accounts
 * **AWS Systems Manager**: Optimize performance and security while managing a large amount of systems
