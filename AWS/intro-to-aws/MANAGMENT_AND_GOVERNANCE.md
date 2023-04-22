@@ -18,3 +18,10 @@
 * **AWS CloudTrail**: Track all user activity across your AWS accounts
 * **AWS Systems Manager**: Optimize performance and security while managing a large amount of systems
 * **Amazon X-ray**: Analyze and debug production applications
+
+
+#### Auto Scaling
+* High availability
+* Better fault tolerance
+* Better cost management
+* EC2, DynamoDB, Aurora
