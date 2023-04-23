@@ -1,4 +1,5 @@
 ### 3 Tips for AWS Building Blocks
+
 ___
 
 * **A Region** is a physical location in the world that consists of two or more Availability Zones (AZs).
@@ -8,6 +9,7 @@ ___
   this consists of CloudFront, Amazon's CDN.
 
 ### The Shared Responsibility Model
+
 ___
 
 * **Customer** Responsibility for Security **IN** the Cloud:
@@ -31,14 +33,28 @@ ___
 ### **Exam Tips**:
 
 **Question**: Can you do this yourself in the AWS Management Console?<br>
-**Answer**: 
+**Answer**:
+
 * **if yes, you are likely responsible**. Security groups, IAM users, patching EC2 O/S,patching databases
-running on EC2, etc.
+  running on EC2, etc.
 * **if not, AWS is likely responsible**. Management of data centers, security cameras, cabling, patching RDS, O/S,etc.
 * **Encryption is a shared responsibility.**
 
 ### **Key Services to Know for the Exam**
+
 1. **Compute**: EC2, Lambda, Elastic Beanstalk
 2. **Storage**: S3, EBS, EFS, FSx, Storage Gateway
 3. **Databases:** RDS, DynamoDB, Redshift
 4. **Networking:** VPCs, Direct Connect, Route 53, API Gateway, AWS Global Accelerator
+
+### Well-Architected Framework Pillars
+
+#### Six Pillars of the Well-Architected Framework - Exam Tip!
+
+1. **Operational Excellence**: Running and monitoring systems to deliver business value, and continually improving
+   processes and procedures.
+2. **Performance Efficiency**: Using IT and computing resources efficiently.
+3. **Security**: Protecting information and systems.
+4. **Cost Optimization**: Avoiding unnecessary costs.
+5. **Reliability**: Ensuring a workload performs its intended function correctly and consistently when it's expected to.
+6. **Sustainability**: Minimizing the environmental impacts of running cloud workloads.
