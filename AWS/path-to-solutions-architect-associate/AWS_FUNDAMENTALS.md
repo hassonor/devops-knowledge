@@ -36,3 +36,9 @@ ___
 running on EC2, etc.
 * **if not, AWS is likely responsible**. Management of data centers, security cameras, cabling, patching RDS, O/S,etc.
 * **Encryption is a shared responsibility.**
+
+### **Key Services to Know for the Exam**
+1. **Compute**: EC2, Lambda, Elastic Beanstalk
+2. **Storage**: S3, EBS, EFS, FSx, Storage Gateway
+3. **Databases:** RDS, DynamoDB, Redshift
+4. **Networking:** VPCs, Direct Connect, Route 53, API Gateway, AWS Global Accelerator
