@@ -49,6 +49,8 @@ ___
 
 ### Well-Architected Framework Pillars
 
+___
+
 #### Six Pillars of the Well-Architected Framework - Exam Tip!
 
 1. **Operational Excellence**: Running and monitoring systems to deliver business value, and continually improving
@@ -58,3 +60,22 @@ ___
 4. **Cost Optimization**: Avoiding unnecessary costs.
 5. **Reliability**: Ensuring a workload performs its intended function correctly and consistently when it's expected to.
 6. **Sustainability**: Minimizing the environmental impacts of running cloud workloads.
+
+### AWS Fundamentals Exam Tips
+
+___
+
+#### 3 Tips for AWS Building Blocks
+
+1. **A Region** is a physical location in the world that consists of two or more Availability Zones (AZs).
+2. **An AZ** is one or more discrete data centers - each with redundant power, networking, and connectivity - housed in
+   separate facilities.
+3. **Edge locations** are endpoints for AWS that are used for caching content. Typically, this consists of CloudFront,
+   Amazon's content delivery network (CDN).
+
+* Can you do this yourself in the AWS Management Console?
+    * **If yes, you are likely responsible**: Security groups, IAM users, patching EC2 OS, patching databases running on
+      EC2, etc.
+    * **If not, AWS is likely responsible.**: Management of data centers, security cameras, cabling, patching RDS,
+      operating systems, etc.
+    * **Encryption is a shared responsibility.**
