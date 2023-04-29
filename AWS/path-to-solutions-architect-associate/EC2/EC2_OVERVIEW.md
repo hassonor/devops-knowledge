@@ -88,3 +88,19 @@ ___
    fixed requirements.
 4. **Dedicated**: A physical EC2 server dedicated for your use. Great if you have server-bound licenses to reuse or
    compliance requirements.
+
+### Exam Tips - AWS CLI Exam Tips
+
+* **Least Privilege**: Always give your users the **minimum amount** of access required to do their job.
+* **Use Groups**: **Create IAM groups** and assign your users to groups. Groups permissions are assigned using IAM
+  policy documents. Your users will **automatically inherit** the permissions of the group.
+
+### Exam Tips - AWS CLI
+
+1. **Secret Access Key**: You will only see this once! if you lose it, you can delete the access key ID and secret
+   access key
+   and regenerate them. You will need to run **aws configure** again.
+2. **Don't Share Key Pairs**: Each developer should have their own access key ID and secret access key. Just like
+   passwords, they should not be shared.
+3. **Supports Linux, Windows, macOS**: You can install the CLI on your Mac, Linux, or Windows PC. You can also use it on
+   EC2 instances.
