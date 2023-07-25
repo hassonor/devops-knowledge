@@ -9,7 +9,7 @@ ___
 
 ___
 
-* Using AWS Direct CConnect, you can establish private connectivity between AWS and your data center or office.
+* Using AWS Direct Connect, you can establish private connectivity between AWS and your data center or office.
 * In Many cases, you can reduce your network costs, increase bandwidth throughput, and provide a more consistent network
   experience than internet-based connections.
 
