@@ -1,5 +1,7 @@
 #### RDS: Exam Tips
 
+___
+
 1. **RDS Database Types**: SQL Server, Oracle, MySQL, PostgreSQL, MariaDB, and Amazon Aurora.
 2. **RDS is for OLTP Workloads**: Great for processing lots of small transactions, like customer orders, banking
    transactions, payments and booking systems.
@@ -8,12 +10,16 @@
 
 #### Read Replicas - Key Facts
 
+___
+
 1. **Scaling Read Performance**: Primarily used for scaling, **not** for disaster recovery!
 2. **Requires Automatic Backup**: Automatic backups must be enabled in order to deploy a read replica.
 3. **Multiple Read Replicas Are Supported**: MySQL, MariaDB, PostgreSQL, Oracle and SQL Server allow you to add up to 5
    read replicas to each DB instance.
 
 #### RDS Multi-AZ and Read Replicas
+
+___
 
 1. **Multi-AZ**:
     * An exact copy of your production database in another Availability Zone.
@@ -27,6 +33,8 @@
 
 #### Amazon Aurora: 4 Aurora Exam Tips
 
+___
+
 * 2 copies of your data are contained in each Availability Zone, with a minimum of 3 Availability Zones. 6 copies of
   your data.
 * You can share Aurora snapshots with other AWS accounts.
@@ -37,10 +45,14 @@
 
 #### Study Tip: Aurora Serverless Use Cases
 
+___
+
 * Aurora Serverless provides a **relatively simple, cost-effective option** for infrequent, intermittent or
   unpredictable workloads.
 
 #### 4 Facts about DynamoDB
+
+___
 
 1. Stored on SSD storage
 2. Spread across 3 geographically distinct data centers
@@ -49,12 +61,16 @@
 
 #### What's the difference between eventually consistent reads and strongly consistent reads?
 
+___
+
 * **Eventually**: Consistency across all **copies of data is usually reached within a second**. Repeating a read after a
   short time should return the updated data. Best read performance.
 * **Strongly**: A strongly consistent read **return a result that reflects all writes** that received a successful
   response prior to the read.
 
 #### DynamoDB Transactions
+
+___
 
 * Multiple "all-or-nothing" operations
 * Financial transactions
@@ -70,12 +86,16 @@
 
 #### DynamoDB On-Demand Backup and Restore
 
+___
+
 * Full backups at any time
 * Zero impact on table performance or availability
 * Consistent within seconds and **retained until deleted**
 * Operated within same region as the source table
 
 #### DynamoDB Point-In-Time Recovery (PITR)
+
+___
 
 * Protects against accidental writes or deletes
 * Restore to any point in the last **35 days**
@@ -85,12 +105,16 @@
 
 #### Streams
 
+___
+
 * Time-ordered sequence of item-level changes in a table
 * Stored for **24 hours**
 * Inserts, updates and deletes
 * Combine with Lambda functions for functionality like stored procedures
 
 #### Managed Multi-Master, Multi-Region Replication
+
+___
 
 * Globally distributed applications
 * Based on DynamoDB streams
@@ -100,6 +124,8 @@
 
 #### Operating MongoDB-Compatible Databases in Amazon DocumentDB
 
+___
+
 * A typical question might be around moving your MongoDB data to AWS.
     1. MongoDB On-Premises
     2. AWS Databases Migration Service
@@ -108,17 +134,25 @@
 
 #### Exam Tips: Scenario Question about Cassandra
 
+___
+
 * If you see a scenario question about migrating a big data Cassandra cluster to AWS... **Think of AWS Keyspaces**
 
 #### Exam Tip: Neptune is ofter used as a distractor
+
+___
 
 * If the scenario is **not** talking about graph databases, **do not** select Neptune as an answer.
 
 #### Exam Tip: QLDB is ofter used as a distractor
 
+___
+
 * If the scenario is **not** talking about immutable databases, **do not** select Amazon Quantum Ledger Database as an
   answer.
 
 #### Exam Tips: Scenario Question about Time-Series Data?
+
+___
 
 * See a scenario question about where to store a large amount of time-series data for analysis? **Think of Timestream**

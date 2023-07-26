@@ -1,5 +1,7 @@
 #### RDS Exam Tips
 
+___
+
 1. **RDS Database Types**: SQL Server, Oracle, MySQL, PostgreSQL, MariaDB and Amazon Aurora.
 2. **RDS Is for OLTP Workloads**: Great for processing lots of small transactions, like customer orders, banking
    transactions, payments and booking systems.

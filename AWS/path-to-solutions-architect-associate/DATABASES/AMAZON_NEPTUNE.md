@@ -1,12 +1,18 @@
 #### What is Graph Database?
 
+___
+
 * A graph database stores nodes and relationships instead of tables or documents.
 
 #### Neptune is Amazon's graph database service
 
+___
+
 * Neptune is a fast, reliable, fully managed graph database service that makes it easy to build and run applications.
 
 #### Use Cases for Neptune
+
+___
 
 * **Build Connection between Identities**: Easily build identity graphs for identity resolution solutions such as social
   graphs, and accelerate updated for ad targeting, personalization and analytics.
@@ -18,6 +24,8 @@
   security approach. Visualize all infrastructure to plan, predict and mitigate risk.
 
 #### Exam Tip: Neptune is ofter used as a distractor.
+
+___
 
 * If the scenario is **not** talking about graph databases, **do not** select Neptune as an answer. You only need to
   know that Neptune does at a very high level.

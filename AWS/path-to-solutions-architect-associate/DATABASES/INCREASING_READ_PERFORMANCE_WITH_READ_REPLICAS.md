@@ -1,5 +1,7 @@
 ### Exam Tips: Increasing read performance with read replicas
 
+___
+
 #### Multi-AZ
 
 * An exact copy of your production database in another Availability Zone.

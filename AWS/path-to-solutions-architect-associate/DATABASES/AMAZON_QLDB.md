@@ -1,5 +1,7 @@
 #### What is a Ledger Database?
 
+___
+
 * It's a NoSQL database that is immutable, transparent, and has a cryptographically verifiable transaction and has a
   cryptographically verifiable transaction log that is owned by one authority.
 * **You cannot update a record in a ledger database. Instead, an update adds a new record to the database.**
@@ -10,10 +12,14 @@
 
 #### Amazon Quantum Ledger Database (QLDB)
 
+___
+
 * A fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction
   log.
 
 #### QLDB Use Cases:
+
+___
 
 * **Store FFinancial Transactions**: Create a complete and accurate record of all financial transactions, such as credit
   and debit transactions.
@@ -25,6 +31,8 @@
   employee details, such as payroll, bonus, and benefits.
 
 #### Exam Tip: QLDB is often used as a distractor
+
+___
 
 * If the scenario is not talking about immutable databases, do not select Amazon QLDB as an answer. You need to know
   what QLDB does only at a very high level.
