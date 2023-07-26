@@ -74,12 +74,16 @@ ___
 
 ### Exam Tips - EC2 Overview:
 
+___
+
 * Select the capacity you need **right now**
 * Grow and shrink when you need
 * Pay for what you use
 * Wait minuted, not months
 
 ### Exam Tips - EC2 Instance: Pricing Options
+
+___
 
 1. **On-Demand**: Pay by the hour or second, depending on the type of instance you run. Great for flexibility.
 2. **Spot**: Purchase unused capacity at a discount of up to 90%. Prices fluctuate with supply and demand. Great for
@@ -91,11 +95,15 @@ ___
 
 ### Exam Tips - AWS CLI Exam Tips
 
+___
+
 * **Least Privilege**: Always give your users the **minimum amount** of access required to do their job.
 * **Use Groups**: **Create IAM groups** and assign your users to groups. Groups permissions are assigned using IAM
   policy documents. Your users will **automatically inherit** the permissions of the group.
 
 ### Exam Tips - AWS CLI
+
+___
 
 1. **Secret Access Key**: You will only see this once! if you lose it, you can delete the access key ID and secret
    access key
