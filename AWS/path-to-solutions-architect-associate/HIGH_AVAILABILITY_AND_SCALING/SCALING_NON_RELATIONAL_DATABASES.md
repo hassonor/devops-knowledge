@@ -7,7 +7,7 @@ ___
         * `Use Case`: Generally predictable workload
         * `Effort to Use`: Need to review past usage to set upper and lower scaling bounds
         * `Cost`: Most cost-effective model
-    * `On-Deman`:
+    * `On-Demand`:
         * `Use Case`: Sporadic workload
         * `Effort to Use`: Simple select on-demand
         * `Cost`: Pay small amount of money per read and write. Less cost-effective.
