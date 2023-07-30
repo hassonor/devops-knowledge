@@ -26,6 +26,8 @@ your application.<br><br>
 
 ### Exam Tips
 
+___
+
 * **3 Types of Placement Groups**
     1. **Cluster Placement Groups**: Low network latency, high network throughput.
     2. **Spread Placement Groups**: Individual critical EC2 instances

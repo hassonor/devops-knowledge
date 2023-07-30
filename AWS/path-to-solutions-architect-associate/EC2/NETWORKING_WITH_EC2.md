@@ -1,5 +1,7 @@
 ### Networking with EC2
 
+___
+
 You can attach 3 different types of **virtual networking cards** to your EC2 instances:
 
 1. **ENI - Elastic Network Interface** - For basic, day-to-day networking
@@ -34,6 +36,8 @@ You can attach 3 different types of **virtual networking cards** to your EC2 ins
 ### Exam Tip: In any scenario in a manner of Enhanced networking question: Choose ENA  (Elastic Network Adapter) over VF (Intel 82599 Virtual Function Interface).
 
 ### Exam Tips: For different scenarios on the exam, choose the correct networking device:
+
+___
 
 1. **ENI**: For basic networking. Perhaps you need a separate management network from your production network or a
    separate logging network, and you need to do this at a low cost. In this scenario , use multiple ENIs for each
