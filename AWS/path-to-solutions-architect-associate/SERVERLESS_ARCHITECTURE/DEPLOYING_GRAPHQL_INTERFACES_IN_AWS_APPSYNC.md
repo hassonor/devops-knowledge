@@ -14,4 +14,3 @@ ___
 
 * `Scalable GraphQL interface`: Service for scalable GraphQL interfaces for application developers
 * `Keyworkds`: GraphQL, fetching app data, declarative coding and fronted app data fetching
-* 
