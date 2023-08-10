@@ -68,3 +68,19 @@ ___
   application with flexible start and end times.
 * `Dedicated`: A physical EC2 server dedicated for your use. Great if you have server-bound licenses to reuse or
   compliance requirements.
+
+### Exploring EC2 Instance Types
+
+___
+
+1. `Hardware`: When you launch an instance, the instance type determines the hardware of the host computer used for your
+   instance.
+2. `Capabilities`: Each instance type offers different compute, memory and storage capabilities. These types are grouped
+   in instance families.
+3. `Application Requirements`: Select an instance type based on the requirements of the application that you plan to run
+   on your instance.
+
+#### Exam Tips: Determines the hardware of the host computer
+
+Each instance type offers different compute, memory and storage capabilities. These types are grouped in instances
+families. Select an instance type based on the requirements of your application.
