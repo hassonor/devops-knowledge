@@ -45,4 +45,15 @@ ___
     * Less-frequently-accessed data.
     * Cannot be a boot volume.
     * Lowest cost.
-    * Up to 99.9% durablity.
+    * Up to 99.9% durability.
+
+#### EBS Volumes
+
+___
+
+1. `Default Encryption`: If encryption by default is set on your account by your account admin, you cannot create
+   encrypted EBS volumes.
+2. `Encrypted Snapshots`: If you can create an EBS volume from an encrypted snapshot, then you will get an encrypted
+   volume.
+3. `Unencrypted Snapshots`: If you create an EBS volume from an encrypted snapshot, then encryption is only optional if
+   default encryption has not been set at account level by your account admin.
