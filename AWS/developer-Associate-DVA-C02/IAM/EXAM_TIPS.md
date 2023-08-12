@@ -54,4 +54,4 @@ ___
 2. `Don't Share Key Pairs`: Each developer should have their own access key ID and secret access key. Just like
    passwords, they should not be shared.
 3. `Supports Linux, Windows MacOS`: You can install the CLI on your Mac, Linux or Windows PC. You can also use it on EC2
-   instancs.
+   instances.
