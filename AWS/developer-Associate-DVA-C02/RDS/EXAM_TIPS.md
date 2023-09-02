@@ -28,5 +28,28 @@ ___
 2.
     * A read-only copy of your primary database in the same AZ, cross-AZ of cross-region.
     * Used to increase or scale read performance.
-    * Great for read-heavy workloads and takes the load off your primary database for read-only workloads, e.g.,
+    * Great for read-heavy workloads and take the load off your primary database for read-only workloads, e.g.,
       Business Intelligence reporting jobs.
+
+### Backups vs. Snapshots - Exam Tips
+
+___
+
+* `Automated Backup`:
+    * Automated, enabled by default, you define the backup window
+    * Point-in-time snapshot plus transaction logs
+    * Retention period of 1-35 days
+    * It can be used to recover your database at any point in time within the retention period
+* `DB Snapshot`:
+    * User-Initiated, ad-hoc
+    * Point-in-time snapshot only
+    * No retention period; stored indefinitely
+    * Used to back up your DB instance to a known state and restore to that specific state at any time, e.g., before
+      making a change to the database.
+
+#### EDS Encryption Exam Tips:
+
+1. `Enable at Creation`: Includes all underlying storage, automated backups, snapshots, logs and read replicas.
+2. `KMS Integration`: Uses the AWS Key Management Service (KMS) service for AES-256 encryption.
+3. `Existing RDS Instances`: Take a snapshot, encrypt the snapshot, then create a new RDS instance from the encrypted
+   snapshot.
