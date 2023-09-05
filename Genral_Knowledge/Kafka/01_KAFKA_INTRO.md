@@ -47,6 +47,46 @@ developers to perform common types of work.
 
 ___
 
+### Use Cases
+
+#### Activity tracking
+
+The original use case for Kafka, as it designed at LinkedIn, is that of user activity tracking.
+A website's users
+interact with fronted applications, which generate messages regarding actions the user is taking.
+This can be passive
+information, such as page views and click tracking, or it can be more complex actions, such as information that a user
+adds to their profile.
+The messages are published to one or more topics, which are then consumed by applications on the
+backend.
+These applications may be generating reports, feeding machine learning systems, updating search results, or
+performing other operations that are necessary to provide a rich user experience.
+
+#### Messaging
+
+Kafka is also used for messaging, where applications need to send notifications to users.
+Those applications can produce a message
+without needing to be concerned about formatting or how the message will actually be sent.
+A single application can then read all the messages to be sent and handle them consistently, including:
+
+* Formatting the messages (decorating) using a common look and feel
+* Collecting multiple messages into a single notifications to be sent
+* Applying a user's preferences for how they want to receive messages.
+
+#### Metrics and logging
+
+Kafka is also ideal for collecting application and system metrics and logs.
+This is use case in which the ability to have multiple applications producing the same type of message shines.
+Applications publish metrics on a regular basis to a Kafka topic,
+and those metrics can be consumed by systems for monitoring and alerting.
+
+#### Commit log
+
+Since Kafka is based on the concept of a commit log, database changes can be published to Kafka,
+and applications can easily monitor this stream to recieve live updates as they happen.
+
+#### Stream processing
+
 ## Brokers and Clusters
 
 ___
