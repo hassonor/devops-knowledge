@@ -44,7 +44,7 @@ ___
 * Data is assigned randomly to a partition unless a key is provided
 * You can have as many partitions per topic as you want
 
-### Producers
+### Producers and message keys
 
 ___
 
@@ -115,3 +115,25 @@ ___
 ```md
 Record ---.send()---> Producer Partitioner logic --Assign partition 1-> Partition 1
 ```
+
+### Consumers and deserialization
+
+___
+
+#### Consumers
+
+* Consumers read data from a topic (identified by name) - pull model
+* Consumers automatically know which broker to read from
+* In case a broker failures, consumers know how to recover
+* Data is read in order from low to high offset `within each partition`
+
+#### Consumer Deserializer
+
+* Deserialize indicates how to transform bytes into objects / data
+* They are used on the value and the key of the message
+* Common Deserializers:
+    * String (incl.JSON)
+    * Int, Float
+    * Avro
+    * Protobuf
+* The serialization / deserialization type must not change during a topic lifecycle (**create a new topic instead**)
