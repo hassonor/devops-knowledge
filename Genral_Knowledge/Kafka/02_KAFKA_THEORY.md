@@ -255,4 +255,17 @@ ___
 * Since Kafka 2.4, it is possible to configure consumers to read from the closest replica
 * This may help improve latency, and also decrease network costs if using the cloud
 
+#### Producer Acknowledgements (acks)
+
+* Producers can choose to receive acknowledgement of data writes:
+    * `acks=0`: Producer won't wait for acknowledgment (possible data loss)
+    * `acks=1`: Producer will wait for leader acknowledgment (limited data loss)
+    * `acks=all`: Leader + replicas acknowledgment (no data loss)
+
+#### Kafka Topic Durability
+
+* For a topic replication factor of 3, topic data durability can withstand 2 brokers loss.
+* As a rule, for a replication factor of `N`, you can permanently lose up to `N-1` brokers and still recover your data.
+
+
 
