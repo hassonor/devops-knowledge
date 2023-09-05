@@ -267,5 +267,37 @@ ___
 * For a topic replication factor of 3, topic data durability can withstand 2 brokers loss.
 * As a rule, for a replication factor of `N`, you can permanently lose up to `N-1` brokers and still recover your data.
 
+### ZooKeeper
+
+____
+
+* ZooKeeper manages brokers (keeps a list of them)
+* ZooKeeper helps in performing leader election for partitions
+* ZooKeeper sends notifications to Kafka in case of changes (e.g., new topic, broker dies, broker comes up, delete
+  topics, etc...)
+* `Kafka 2.x can't work without ZooKeeper`
+* `Kafka 3.x can work without ZooKeeper (KIP-500) - using Kafka Raft instead`
+* `Kafka 4.x will not have ZooKeeper`
+* ZooKeeper by design operates with an odd number of servers (1,3,6,7)
+* ZooKeeper has a leader (writes) the rest of the servers are followers (reads)
+* (ZooKeeper does NOT store consumer offsets with Kafka > v0.10)
+
+### Kafka KRaft: Removing ZooKeeper
+
+___
+
+#### About Kafka KRaft
+
+* In 2020, the Apache Kafka project started to work `to remove the Zookeeper dependency` from it (KIP-500)
+* Zookeeper shows scaling issues when Kafka clusters have > 100,000 partitions
+* By removing Zookeeper, Apache Kafka can:
+    * Scale to millions of partitions, and becomes easier to maintain and set-up
+    * Improve stability, makes it easier to monitor, support and administer
+    * Single security model for the whole system
+    * Single process to start with Kafka
+    * Faster controller shutdown and recovery time
+* Kafka 3.X now implements the Raft protocol (KRaft) in order to replace Zookeeper
+    * Production ready since Kafka 3.3.1 (KIP-833)
+    * Kafka 4.0 will be released only with KRaft (no Zookeeper)
 
 
