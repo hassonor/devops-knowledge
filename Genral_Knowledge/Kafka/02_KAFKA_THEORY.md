@@ -179,3 +179,38 @@ ___
 * Option 3 `Exactly once`
     * For Kafka => Kafka workflows: use the Transactional API (easy with Kafka Streams API)
     * For Kafka => External System workflows: use an `idempotent` consumer
+
+### Brokers and topics
+
+____
+
+#### Kafka Brokers
+
+* A Kafka cluster is composed of multiple brokers (servers)
+* Each broker is identified with its ID (integer), e.g., `BROKER 101`,`BROKER 102`, `BROKER 103` etc.
+* Each broker contains certain topic partitions
+* After connecting to any broker (called a bootstrap broker), you will be connected to the entire cluster.
+* A good number to get started is 3 brokers, but some big clusters have over 100 brokers
+
+#### Brokers and topics
+
+* Example of Topic-A with 3 partitions and Topic-B with 2 partitions
+* `Broker 101:`
+    * `Topic-A Partition 0`
+    * `Topic-B Partition 1`
+* `Broker 102:`
+    * `Topic-A Partition 2`
+    * `Topic-B Partition 0`
+* `Borker 103:`
+    * `Topic-A Partition 1`
+* Note: data is distributed, and `Broker 103` doesn't have any `Topic B` data.
+
+#### Kafka Broker Discovery
+
+* Every Kafka broker is also called a "bootstrap server"
+* That means that `you only need to connect to once broker`, and the Kafka clients will know how to be connected to the
+  entire cluster (smart clients)
+* Each broker knows about all brokers, topics and partitions (metadata)
+
+
+
