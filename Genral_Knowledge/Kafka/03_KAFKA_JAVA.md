@@ -80,14 +80,8 @@ public class ProducerWithCallbackDemo {
         Properties properties = new Properties();
 
         // connect to localhost
-//        properties.setProperty("bootstrap.servers","127.0.0.1:9092");
+         properties.setProperty("bootstrap.servers","127.0.0.1:9092");
 
-        // connect to Counduktor Playground
-        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
-        properties.setProperty("security.protocol", "SASL_SSL");
-        properties.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"63bSmEDvzJcS0NEDhtFOAT\" password=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY29uZHVrdG9yLmlvIiwic291cmNlQXBwbGljYXRpb24iOiJhZG1pbiIsInVzZXJNYWlsIjpudWxsLCJwYXlsb2FkIjp7InZhbGlkRm9yVXNlcm5hbWUiOiI2M2JTbUVEdnpKY1MwTkVEaHRGT0FUIiwib3JnYW5pemF0aW9uSWQiOjc2NDA1LCJ1c2VySWQiOjg4ODk1LCJmb3JFeHBpcmF0aW9uQ2hlY2siOiIyYjFmZDY0ZC0yODM5LTRkY2UtOWM0Zi04ZmMzZGE3ZGE0Y2QifX0.Ufrk89wYDB5toivGpncsSPr4A4pbHCQqWSbfj4L_nEw\";");
-        properties.setProperty("sasl.mechanism", "PLAIN");
-        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
 
         // set producer properties
         properties.setProperty("key.serializer", StringSerializer.class.getName());
@@ -172,14 +166,7 @@ public class ProducerKeysDemo {
         Properties properties = new Properties();
 
         // connect to localhost
-//        properties.setProperty("bootstrap.servers","127.0.0.1:9092");
-
-        // connect to Counduktor Playground
-        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
-        properties.setProperty("security.protocol", "SASL_SSL");
-        properties.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"63bSmEDvzJcS0NEDhtFOAT\" password=\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY29uZHVrdG9yLmlvIiwic291cmNlQXBwbGljYXRpb24iOiJhZG1pbiIsInVzZXJNYWlsIjpudWxsLCJwYXlsb2FkIjp7InZhbGlkRm9yVXNlcm5hbWUiOiI2M2JTbUVEdnpKY1MwTkVEaHRGT0FUIiwib3JnYW5pemF0aW9uSWQiOjc2NDA1LCJ1c2VySWQiOjg4ODk1LCJmb3JFeHBpcmF0aW9uQ2hlY2siOiIyYjFmZDY0ZC0yODM5LTRkY2UtOWM0Zi04ZmMzZGE3ZGE0Y2QifX0.Ufrk89wYDB5toivGpncsSPr4A4pbHCQqWSbfj4L_nEw\";");
-        properties.setProperty("sasl.mechanism", "PLAIN");
-        properties.setProperty("bootstrap.servers", "cluster.playground.cdkt.io:9092");
+           properties.setProperty("bootstrap.servers","127.0.0.1:9092");
 
         // set producer properties
         properties.setProperty("key.serializer", StringSerializer.class.getName());
@@ -227,5 +214,13 @@ public class ProducerKeysDemo {
 
     }
 }
-
 ```
+
+### Kafka Consumer: Java API - Basics
+
+___
+
+* How to write a basic consumer to receive data from Kafka
+* View basic configuration parameters
+* Confirm we receive the data from the Kafka Producer written in Java
+
