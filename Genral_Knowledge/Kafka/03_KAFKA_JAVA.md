@@ -67,7 +67,6 @@ import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Properties;
 
 public class ProducerWithCallbackDemo {
@@ -81,7 +80,6 @@ public class ProducerWithCallbackDemo {
 
         // connect to localhost
          properties.setProperty("bootstrap.servers","127.0.0.1:9092");
-
 
         // set producer properties
         properties.setProperty("key.serializer", StringSerializer.class.getName());
@@ -153,14 +151,12 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.Properties;
 
 public class ProducerKeysDemo {
     private static final Logger log = LoggerFactory.getLogger(ProducerKeysDemo.class.getSimpleName());
 
     public static void main(String[] args) {
-
 
         // create Producer Properties
         Properties properties = new Properties();
@@ -205,7 +201,6 @@ public class ProducerKeysDemo {
             }
         }
 
-
         // tell the producer to send all data and block until done -- synchronous
         producer.flush(); // not needed here, wrote it just for showing the API
 
@@ -235,7 +230,6 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
@@ -254,7 +248,6 @@ public class ConsumerWithShutdownDemo {
 
         // connect to localhost
            properties.setProperty("bootstrap.servers","127.0.0.1:9092");
-
 
         // create consumer configs
         properties.setProperty("key.deserializer", StringDeserializer.class.getName());
@@ -283,11 +276,8 @@ public class ConsumerWithShutdownDemo {
                     throw new RuntimeException(e);
                 }
             }
-
-
         });
-
-
+        
         try {
 
             // subscribe to a topic
