@@ -417,4 +417,17 @@ public class ConsumerCooperativeDemo {
 }
 ```
 
+### Kafka Consumer - Auto Offset Commit Behavior
+
+___
+
+* In the Java Consumer API, offsets are regularly committed
+* Enable a reading scenario at least once by default (under conditions)
+* Offsets are committed when you call `.poll()` and `auto.commit.interval.ms` has elapsed.
+* Example: `auto.commit.interval.ms=500` and `enable.auto.commit=true` will commit
+* _Make sure messages are all successfully processed before you call_ `poll()` _again_.
+    * If you don't, you will not be in at-least-once reading scenario
+    * In that (rare) case, you must disable `enable.auto.commit`, and most likely most processing to separate thread,
+      and then from time-to-time call `.commitSync()` or `.commitAsync()` with the correct offsets manually (advanced).
+
 
