@@ -430,4 +430,13 @@ ___
     * In that (rare) case, you must disable `enable.auto.commit`, and most likely most processing to separate thread,
       and then from time-to-time call `.commitSync()` or `.commitAsync()` with the correct offsets manually (advanced).
 
+### Producer Acknowledgements (acks)
+
+___
+
+* Producers can choose to receive acknowledgement of data writes:
+    * `acks=0`: Producer won't wait for acknowledgment (possible data loss)
+    * `acks=1`: Producer will wait for leader acknowledgments (limited data loss)
+    * `acks=all`: Leader + replicas acknowledgment (no data loss)
+
 
