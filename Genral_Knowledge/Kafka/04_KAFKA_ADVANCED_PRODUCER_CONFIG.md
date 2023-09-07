@@ -45,3 +45,21 @@ ___
           brokers going down for topic availability purposes.
 * `acks=all` and `min.insync.replicas=2` is the most popular option for data durability and availability and allows you
   to withstand at most the loss of `one` Kafka broker
+
+### Producer Retries
+
+___
+
+* In case of transient failures, developers are expected to handle exceptions; otherwise the data will be lost.
+* Example of transient failure:
+    * `NOT_ENOUGH_REPLICAS` (due to `mini.insync.replicas` setting)
+* There is a "`retries`" setting
+    * defaults to 0 for Kafka<=2.0
+    * defaults to 2147483647 for Kafka>=2.1
+* The `retry.backoff.ms` setting is by default 100ms
+
+#### Producer Timeouts
+
+* If retries> 0, for example `retries=2147483647`, retries are bounded by a timeout
+* Since Kafka 2.1, you can set: `delivery.timout.ms=120000==2 min`
+* Records will be failed if they can't be acknowledged within `delivery.timeout.ms`
