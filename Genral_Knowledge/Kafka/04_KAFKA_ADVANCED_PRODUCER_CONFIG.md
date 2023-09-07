@@ -63,3 +63,43 @@ ___
 * If retries> 0, for example `retries=2147483647`, retries are bounded by a timeout
 * Since Kafka 2.1, you can set: `delivery.timout.ms=120000==2 min`
 * Records will be failed if they can't be acknowledged within `delivery.timeout.ms`
+
+### Idempotent Producer
+
+___
+
+* In Kafka >=0.11, you can define an "idempotent producer" which won't introduce duplicated on network error
+* Idempotent producers are great to guarantee a stable and safe pipeline!
+* `They are the default since Kafka 3.0, recommended to use them`
+* They come with:
+    * `retries=Integer.MAX_VALUE`(2^31-1=2,147,483,647)
+    * `max.in.flight.requests=1` (Kafka==0.11)
+    * `max.in.flight.requests=5` (Kafka>=1.0 - higher performance & keep ordering - KAFKA-5494)
+    * `acks=all`
+* These settings are applied automatically after your producer has started if not manually set
+* Just set: `producerProps.put("enable.idempotence",true);`
+
+### Kafka Producer defaults
+
+* `Since Kafka 3.0`, the producer is "safe" by defaults:
+    * `acks=all` (-1)
+    * `enable.idempotence=true`
+* `With Kfka 2.8 and lower`, the producer by default comes with:
+    * `acks=1`
+    * `enable.idempotence=false`
+
+### Safe Kafka Producer—Summary
+
+* `Since Kafka 3.0`, the producer is "safe" by default, otherwise upgrade your clients or set the following settings:
+* `acks=all`
+    * Ensures data is properly replicated before an ack is received
+* `min.insync.replicas=2` (broker/topic level)
+    * Ensures two brokers in ISR at least have the data after an ack
+* `enable.idempotence=true`
+    * Duplicates are not introduced due to network retries
+* `retries=MAX_INT` (producer level)
+    * Retry until `delivery.timeout.ms` is reached
+* `delivery.timeout.ms=12000`
+    * Fail after retrying for 2 minutes
+* `max.in.flight.requests.per.connection=5`
+    * Ensures maximum performance while keeping message ordering
