@@ -81,6 +81,8 @@ ___
 
 ### Kafka Producer defaults
 
+___
+
 * `Since Kafka 3.0`, the producer is "safe" by defaults:
     * `acks=all` (-1)
     * `enable.idempotence=true`
@@ -89,6 +91,8 @@ ___
     * `enable.idempotence=false`
 
 ### Safe Kafka Producer—Summary
+
+___
 
 * `Since Kafka 3.0`, the producer is "safe" by default, otherwise upgrade your clients or set the following settings:
 * `acks=all`
@@ -103,3 +107,44 @@ ___
     * Fail after retrying for 2 minutes
 * `max.in.flight.requests.per.connection=5`
     * Ensures maximum performance while keeping message ordering
+
+### Message Compression at the Producer level
+
+___
+
+* Producer usually sends data that is text-based, for example, with JSON data
+* In this case, it is important to apply compression to the producer
+* Compression can be enabled at the Producer level and doesn't require any configuration change in the Brokers or in the
+  Consumers
+* `compression.type` can be `none` (default), `gzip`, `lz4`, `snappy`, `zstd` (Kafka 2.1)
+* Compression is more effective, the bigger the batch of messages being sent to Kafka!
+* Benchmarks
+  here: [https://blog.cloudflare.com/squeezing-the-firehose/](https://blog.cloudflare.com/squeezing-the-firehose/)
+
+#### Message Compression
+
+* The compressed batch has the following advantage:
+    * Much smaller producer request size (compression ratio up to 4x!)
+    * Faster to transfer data over the network => less latency
+    * Better throughput
+    * Better disk utilisation in Kafka (stored messages on disk are smaller)
+* Disadvantages (very minor):
+    * Producers must commit some CPU cycles to compression
+    * Consumers must commit some CPU cycles to decompression
+* Overall:
+    * Consider testing `snappy` or `lz4` for optimal speed / compression ratio (test others too)
+    * Consider tweaking `linger.ms` and `batch.size` to have bigger batches, and therefore more compression and higher
+      throughput
+    * Use compression in production
+
+#### Message Compression at the Broker / Topic level
+
+* There is also a setting you can set at the broker level (all topics) or topic-level
+* `compression.type=producer` (default), the broker takes the compressed batch from the producer client and writes
+  directly to the topic's log file without recompressing the data
+* `compression.type=none`: the broker decompresses all batches
+* `compression.type=lz4` (for example)
+    * If it's matching the producer setting, data is stored on disk as it is
+    * If it's a different compression setting, batches are decompressed by the broker and then re-compressed using the
+      compression algorithm specified
+* `WARNING`: if you enable broker-side compression, it will consume extra CPU cycles
