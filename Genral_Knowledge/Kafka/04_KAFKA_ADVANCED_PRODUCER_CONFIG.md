@@ -148,3 +148,76 @@ ___
     * If it's a different compression setting, batches are decompressed by the broker and then re-compressed using the
       compression algorithm specified
 * `WARNING`: if you enable broker-side compression, it will consume extra CPU cycles
+
+### `linger.ms` & `batch.size`
+
+___
+
+* By default, Kafka producers try to send records as soon as possible
+    * It will have up to `max.in.flight.requests.per.connection=5`, meaning up to 5 message batches being in flight
+      (being sent between the producer in the broker) at most
+    * After this, if more messages must be sent while others are in flight, Kafka is smart and will start batching them
+      before the next batch sends
+* This smart batching helps increase throughput while maintaining very low latency
+    * Added benefit: batches have higher compression ratio so better efficiency
+* Two settings to influence the batching mechanism:
+    * `linger.ms`: (default 0) how long to wait until we send a batch. Adding a small number, for example, 5ms helps add
+      more messages in the batch at the expense of latency
+    * `batch.size`: If a batch is filled before `linger.ms`, increase the batch size
+
+#### `batch.size` (default 16KB)
+
+* Maximum number of bytes that will be included in a batch
+* Increasing a batch size to something like 32KB or 64KB can help increase compression, throughput and efficiency of
+  requests
+* Any message that is bigger than the batch size will not be batched
+* A batch is allocated per partition, so make sure that you don't set it to a number that's too high, otherwise you will
+  run waste memory!
+* You can monitor the average batch size metric using `Kafka Producer Metrics`
+
+#### High-Throughput Producer
+
+* Increase `linger.ms` and producer will wait a few ms for the batches to fill up before sending them.
+* If you are sending full batches and have memory to spare, you can increase `batch.size` and send larger batches
+* Introduce some producer-level compression for more efficiency in sending
+
+```java
+// high throughput producer (at the expense of a bit of latency and CPU usage)
+properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "25");
+properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024));
+```
+
+### Producer default partitioner and sticky partitioner
+
+___
+
+#### Producer Default Partitioner when `key!=null`
+
+* `Key Hashing` is the process of determining the mapping of a key to partition
+* In the default Kafka partitioner, the keys are hashed using the `murmur2 algorithm`
+
+```java
+targetPartition = Math.abs(Utils.murmur2(keybytes)) % (numPartitions - 1) 
+```
+
+* This means that the same key will go to the same partition, and adding partitions to a topic will completely alter the
+  formula
+* It is most likely preferred to not override the behavior of the partitioner, but it is possible to do so
+  using `partitioner.class`
+
+#### Producer Default Partitioner when `key=null`
+
+* When `key=null`, the producer has a `default partitioner` that varies
+    * `Round Robin`: for Kafka 2.3 and below
+    * `Sticky Partitioner`: for Kafka 2.4 and above
+* `Sticky Partitioner` improves the performance of the producer especially when high throughput when the key is null
+
+#### Producer Default Partitioner Kafka>2.4 Sticky Partitioner
+
+* It would be better to have all the records sent to a single partition and not multiple partitions to improve batching
+* The producer `sticky partitioner`:
+    * We "stick" to a partition until the batch is full or `linger.ms` has elapsed
+    * After sending the batch, the partition that is sticky changes
+* Larger batches and reduced latency (because larger requests, and `batch.size` more likely to be reached)
+* Over time, records are still spread evenly across partitions
