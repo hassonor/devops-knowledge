@@ -300,4 +300,51 @@ ___
     * Production ready since Kafka 3.3.1 (KIP-833)
     * Kafka 4.0 will be released only with KRaft (no Zookeeper)
 
+### Consumer offsets commit strategies
 
+___
+
+* There are two most common patterns for committing offsets in consumer applications.
+* `2 startegies`:
+    * (easy) `enable.auto.commit=true` and synchronous processing of batches
+    * (medium) `enable.auto.commit=false` and manual commit of offsets
+
+#### Kafka Consumer - Auto Offset Commit Behavior
+
+* In the Java Consumer API, offsets are regularly committed
+* Enable an at-least once reading scenario by default (under conditions)
+* Offsets are committed when you call `.poll()` and `auto.commit.interval.ms` has elapsed
+* Example: `auto.commit.interval.ms=5000` and `enable.auto.commit=true` will commit
+* `Make sure message are all successfully processed before you call poll() again`
+    * If you don't, you will not be in at-least-once reading scenario
+    * In that (rare) case, you must disable `enable.auto.commit`, and most likely most processing to a separate thread,
+      and then from time-to-time call `.commitSync()` or `.commitAsync()` with the correct offsets manually.
+
+1. `enable.auto.commit=true` and synchronous processing of batches
+
+```java
+while(true){
+  List<Records> batch = consumer.poll(Duration.ofMillis(100))
+  doSomethingSynchronous(batch)
+}
+```
+
+* With `auto-commit`, offsets will be committed automatically for you at a regular
+  interval `auto.commit.inteval.ms=5000` by default.
+  every-time you call `.poll()`
+
+2. `enable.auto.commit=false` and synchronous processing of batches
+
+```java
+while(true){
+  batch += consumer.poll(Duration.ofMillis(100))
+  if isReady(batch){
+    doSomethingSynchronous(batch)
+    consumer.commitAsync();
+  }
+}
+```
+
+* You control when you commit offsets and what's the condition for committing them.
+* Example: accumulating records into a buffer and then flushing the buffer to a database + committing offsets
+  asynchronously then.
