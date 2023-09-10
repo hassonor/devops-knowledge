@@ -425,3 +425,28 @@ ___
     * Maximum data returned for each fetch request
     * If you have available memory, try increasing `fetch.max.bytes` to allow the consumer to read more data in each
       request.
+
+### Consumer replica fetching: Rack awareness
+
+___
+
+#### Default Consumer behavior with partition leaders
+
+* Kafka Consumers by default will read from the leader broker for a partition
+* Possibly higher latency (multiple data center), +high network charges ($$$)
+* Example: Data Centre === Availability Zone (AZ) in AWS, you pay for cross-AZ network charges
+
+#### Kafka Consumers Replica Fetching (Kafka v2.4+)
+
+* Since Kafka 2.4, it is possible to configure consumers to read from `the closest replica`
+* This may help improve latency, and also decrease network costs if using the cloud
+
+#### Consumer Rack Awareness (v2.4+) - How to setup
+
+* `Broker setting`:
+    * Must be version Kafka v2.4+
+    * `rack.id` config must be set to the data center ID (ex: AZ ID in AWS)
+    * Example for AWS: AZ ID `rack.id=usw2-az1`
+    * `replica.selector.class` must be set to `org.apache.kafka.common.replica.RackAwareReplicaSelector`
+* `Consumer client settings`:
+    * Set `client.rack` to the data center ID the consumer is launched on
