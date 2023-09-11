@@ -143,6 +143,41 @@ producer.send(record, new DemoProducerCallback());
 * If Kafka returned an error, `onCompletion()` will have a nonnull exception. Here we "handle" it by printing, but
   production code will probably have more robust error handling functions.
 
+### Configuring Producers
+
+___
+
+#### `client.id`
+
+`client.id` is a logical identifier for the client and the application it is used in. This can be any string and will be
+used by the brokers to identify messages sent from the client.
+It is used in logging and metrics and for quotas.
+
+#### `acks`
+
+The `acks` parameter controls hos many partition replicas must receive the record
+before the producer can consider the writing successful.
+This option has a significant impact on the durability of written messages.
+
+1. `acks=0`: The producer will not wait for a reply from the broker before assuming the message was sent successfully.
+   This means that if something goes wrong and the broker does not receive the message,
+   the producer will not know about it, and the message will be lost, However,
+   because the producer is not waiting for any response from the server,
+   it can send messages as fast as the network will support, so this setting can be used to achieve very high
+   throughput.
+2. `acks=1`: The producer will receive a success response from the broker the moment the leader replica receives the
+   message.
+   If the message can't be written to the leader (e.g., if the leader creased and a new leader was not elected yet),
+   the producer will receive an error response and can retry sending the message, avoiding potential loss of data.
+   The message can still get lost
+   if the leader crashes and the latest messages were not yet replicated to the new leader.
+3. `acks=all`: The producer will receive a success response from the broker once all in sync replicas receive the
+   message.
+   This is the safest mode
+   since you can make sure more than one broker has the message and that the message will survive even in case of a
+   crash.
+   However, the latency we be even higher from `acks=1`,
+   since we will be waiting for more than just one broker to receive the message.
 
 
 
