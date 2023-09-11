@@ -179,6 +179,100 @@ This option has a significant impact on the durability of written messages.
    However, the latency we be even higher from `acks=1`,
    since we will be waiting for more than just one broker to receive the message.
 
+### Message Delivery Time
+
+This is the time we are willing to spend until Kafka responds successfully,
+or until we are willing to give up and admin defeat.<br>
+We divide the time spent sending a `ProduceRecord` into two time intervals that are handled separately:
+
+* Time until an async call to `send()` returns. During this interval, the thread that called `send()` will be blocked.
+* From the time an async call to `send()` returned successfully until the callback is triggered (with success of
+  failure).
+  This is the same as from the point
+  a `ProduceRecord` was placed in a batch for sending until Kafka responds with success, non-retriable failure,
+  or we run out of time allocated for sending.
+
+#### max.block.ms
+
+This parameter controls how long the producer may block when calling
+`send()` and when explicitly requesting metadata via `partitionFor()`.
+Those methods may block when the producer's send buffer is full or when metadata is not available.
+When `max.block.ms` is reached, a timeout exception is thrown.
+
+#### delivery.timeout.ms
+
+This configuration will limit the amount of time spent from the point a record is ready for sending
+(send() returned successfully and the record is placed in a batch);
+until either the broker responds or the client gives up, including time spent on retries.
+
+#### request.timeout.ms
+
+This parameter controls how long the producer will wait for a reply from the server when sending data.
+Note that this is the time spent waiting on each producer request before giving up;
+it does not include retries, time spent before sending, and so on.
+If the timeout is reached without a reply, the producer will either retry sending or complete the callback with
+a `TimeoutException`
+
+#### retries and retry.backoff.ms
+
+When the producer receives an error message from the server, the error could be transient
+(e.g., a lack of leader for a partition).
+In this case,
+the value of the `retries` parameter will control
+how many times the producer will retry sending the message before giving up and notifying the client of an issue.
+By default, the producer will wait 100ms between retries,
+but you can control this using the `retry.backoff.ms` parameter.
+
+#### linger.ms
+
+`linger.ms` controls the amount of time to wait for additional messages before sending the current
+batch. `KafkaProducer` sends a batch of messages either when the current batch is full or when the `linger.ms` limit is
+reached.
+By default, the producer will send messages as soon as there is a sender thread available to send them,
+even if there's just one message in the batch.
+By setting `linger.ms` higher than 0,
+we instruct the producer
+to wait a few milliseconds to add additional messages to the batch before sending it to the brokers.
+This increased latency a little and significantly increases throughput--the overhead per message is much lower,
+and compression, if enabled, is much better.
+
+#### buffer.memory
+
+This config sets the amount of memory the producer will use to buffer message waiting to be sent to brokers.
+If messages are sent by the application faster than they can be delivered to the server,
+the producer may run out of space,
+and additional `send()` calls will block for `max.block.ms` and wait for space to free up before throwing an exception.
+Note that unlike most producer exceptions, this timeout is thrown by `send()` and not by the resulting `Future`.
+
+#### compression.type
+
+By default, messages are sent uncompressed.
+This parameter can be set to `snappy`,`gzip`,`lz4`,
+or `zstd`,
+in which case the corresponding compression algorithms will be used
+to compress the data before sending it to the brokers.
+
+* `snappy` compression was invented by Google to provide decent compression ratios with low-CPU overhead and good
+  performance, so it is recommended in cases where both performance and bandwidth are concern.
+* `gzip` compression will typically use more CPU and time but results in better compression ratios, so it is recommended
+  in cases where network bandwidth is more restricted.
+  By enabling compression, you reduce network utilization and storage,
+  which is often a bottleneck when sending messages to Kafka.
+
+#### batch.size
+
+When multiple records are sent to the same partition, the producer will batch them together.
+This parameter controls the amount of memory in bytes (not messages) that will be used for each batch.
+When the batch is full, all the messages in the batch will be sent.
+However, this does not mean that the producer will wait for the batch to become full.
+The producer will send half-full batches and even batches with just a single message in them.
+Therefore, setting the batch size too large will not cause delays in sending messages;
+it will just use more memory for the batches.
+Setting the batch size too small will add some overhead because the producer will need to send messages more frequently.
+
+
+
+
 
 
 
