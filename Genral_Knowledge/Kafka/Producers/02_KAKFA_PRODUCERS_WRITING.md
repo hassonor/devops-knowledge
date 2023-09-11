@@ -119,3 +119,31 @@ try{
   so the application code will get retriable exceptions
   only when the number of retries was exhausted and the error was not resolved.
 
+#### Sending a Message Asynchronously
+
+To send a message asynchronously and still handle error scenarios,
+the producer supports adding a callback when sending a record.
+
+```java
+private class DemoProducerCallback implements Callback {
+    @Override
+    public void onCompletion(RecordMetadata recordMetadata, Exception e){
+        if(e != null){
+            e.printStackTrace();
+       } 
+    }
+}
+
+ProducerRecord<String, String> record = new ProducerRecord<>("CustomCountry","Biomedical Materials", "Israel");
+producer.send(record, new DemoProducerCallback());
+```
+
+* To use callbacks, you need a class that implements the `org.apache.kafka.clients.producer.Callback` interface, which
+  has a single function- `onCompletion()`.
+* If Kafka returned an error, `onCompletion()` will have a nonnull exception. Here we "handle" it by printing, but
+  production code will probably have more robust error handling functions.
+
+
+
+
+
