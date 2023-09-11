@@ -12,7 +12,7 @@ brew install kafka
 kafka-topics
 
 # Homebrew will install Kafka under /usr/local/Cellar, but the files will be linked into other directories:
-#  Binaries and scripts will be in /usr/local/bin
+#  Binaries and Scripts will be in /usr/local/bin
 #  Kafka configurations will be in /usr/local/etc/kafka
 #  Zookeeper configuration will be in /usr/local/etc/zookeeper
 #  The log.dirs config (the location for Kafka data) will be set to /usr/local/var/lib/kafka-logs
