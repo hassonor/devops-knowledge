@@ -270,6 +270,66 @@ Therefore, setting the batch size too large will not cause delays in sending mes
 it will just use more memory for the batches.
 Setting the batch size too small will add some overhead because the producer will need to send messages more frequently.
 
+#### max.in.flight.requests.per.connection
+
+This controls how many message batches the producer will send to the server without receiving responses.
+Higher settings can increase memory usage while improving throughput.
+
+#### Ordering Guarantees
+
+Apache Kafka preserves the order of message within a partition.
+This means that if messages are sent from the producer in a specific order,
+the broker will write them to a partition in the order and all consumers will read them in that order.<br><br>
+Setting the `retries` parameter to nonzero
+and the `max.in.flight.requests.per.connection` to more then 1 means that it is possible that the broker will fail to
+write the first batch of messages, succeed in writing the second (which was already in-flight), and then retry the first
+batch and succeed, thereby reversing the order.<br><br>
+Since we want at least two in-flight requests for performance reasons, and a high number of retries for reliability
+reasons, the best solution is to set `enable.idempotence=true`.
+This guarantees message ordering with up to five in-flight requests and also guarantees
+that retries will not introduce duplicates.
+
+#### max.request.size
+
+This setting controls the size of a produce request sent by the producer.
+It cap both the size of the largest message
+that can be sent and the number of messages that the producer can send in one request.
+For example, with default maximum request size of 1 MB, the largest message you can send is 1 MB,
+or the producer can batch 1,024 messages of size 1KB each into one request.
+In addition, the broker has its own limit on the size of the largest message it will accept (`message.max.bytes`).
+It is usually a good idea to have these configurations match,
+so the producer will not attempt to send messages of a size that will be rejected by the broker.
+
+#### receive.buffer.bytes and send.buffer.bytes
+
+These are the sizes of the TCP send and receive buffers used by the sockets when writing and reading data.
+If these are set to -1, the OS defaults will be used.
+It is a good idea to increase these when producers or consumers communicate with brokers in a different datacenter,
+because those network links typically have higher latency and lower bandwidth.
+
+#### enable.idempotence
+
+Suppose you configure your producer to maximize reliability:
+`acks=all` and a decently large `delivery.timeout.ms` to allow sufficient retries.
+These make sure each message will be written to Kafka at least once.
+In some cases, this means that message will be written to Kafka more than once.
+For example, imagine that a broker received a record from the producer,
+wrote it to local dist,
+and the record was successfully replicated to other brokers,
+but then the first broker crashed before sending a response to the producer.
+The producer will wait until it reaches `request.timeout.ms` and then retry.
+The retry will go to the new leader
+that already has a copy of this record since the previous writing was replicated successfully.
+You now have a duplicated record.<br><br>
+To avoid this, you can set `enable.idempotence=true`.
+When the idempotent producer is enabled, the producer will attach a sequence number to each record it sends.
+If the broker receives records with the same sequence number,
+it will reject the second copy and the producer will receive the harmless `DuplicateSequenceException`.
+
+* Enabling idempotence requires `max.in.flight.requests.per.conncetion` to be less than or equal to 5, retries to be
+  greater than 0, and `acks=all`.
+  If incompatible values are set, a `ConfigException` will be thrown.
+
 
 
 
