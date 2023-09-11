@@ -70,3 +70,52 @@ There are three primary methods of sending messages:
    we use `get()` to wait on the `Future` and see if the `send()` was successful or not before sending the next record.
 3. `Asynchronous send`: We call the `send()` method with a callback function, which get triggered when it receives a
    response from the Kafka broker.
+
+### Sending a Message to Kafka
+
+___
+The simplest way to send a message is as follows:
+
+```java
+ProducerRecord<String, String> record = new ProducerRecord<>("demo_java","Or Hasson");
+try{
+   producer.send(record);
+} catch (Exception e){
+   e.printStackTrace();
+}
+```
+
+* The types of the key and value must match our key `serializer` and `value serializer` objects.
+
+#### Sending a Message Synchronously
+
+* The main trade-off involved is performance.
+  If you send messages synchronously, the sending thread will spend this
+  time waiting and doing nothing else, not even sending additional messages.
+  This leads to very poor performance, and as a result, sync sends are usually not used in production applications.
+
+The simplest way to send a message synchronously is as follows:
+
+```java
+ProducerRecord<String, String> record = new ProducerRecord<>("demo_java","Or Hasson");
+try{
+   producer.send(record).get();
+   
+} catch (Exception e){
+   e.printStackTrace();
+}
+```
+
+* Here, we are using `Future.get()` to wait for a replay from Kafka. This method will throw an exception if the record
+  is not sent successfully to Kafka.
+  If there were no errors,
+  we will get a `RecordMetadata` object that we can use to retrieve the offset the message was written to and other
+  metadata.
+* `KafkaProducer` has two types of errors. `Retriable` errors are those that can be resolved by sending the message
+  again.
+  A "not leader for partition"
+  error can be resolved when a new leader is elected for the partition and the client metadata is refreshed.
+  `KafkaProducer` can be configured to retry those errors automatically,
+  so the application code will get retriable exceptions
+  only when the number of retries was exhausted and the error was not resolved.
+
