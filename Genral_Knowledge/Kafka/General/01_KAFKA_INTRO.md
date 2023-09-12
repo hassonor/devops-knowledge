@@ -8,7 +8,7 @@ Kafka is able to seamlessly handle multiple producers, whether those clients are
 This makes the system ideal for aggregating data from many frontend systems and making it consistent. For example, a
 site that serves content to users via a number of microservices can have a single topic for page views that all
 services can write to using a common format. Consumer applications can then receive a single stream of page views for
-all applications on the site without having to coordinate consuming from multiple topics, one for each applicaiton.
+all applications on the site without having to coordinate consuming from multiple topics, one for each application.
 
 ### Multiple Consumers
 
