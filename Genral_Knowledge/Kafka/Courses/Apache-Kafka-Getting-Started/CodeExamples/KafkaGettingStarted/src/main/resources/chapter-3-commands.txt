@@ -1,0 +1,65 @@
+#
+# This file contains the shell commands for the Kafka Essentials : Getting Started Course
+#
+
+## Logging into the Kafka Container
+
+        docker exec -it kafka-broker /bin/bash
+
+## Navigate to the Kafka Scripts directory
+
+        cd /opt/bitnami/kafka/bin
+
+## Creating new Topics
+
+        ./kafka-topics.sh \
+            --bootstrap-server localhost:29092 \
+            --create \
+            --topic kafka.learning.tweets \
+            --partitions 1 \
+            --replication-factor 1
+
+        ./kafka-topics.sh \
+            --bootstrap-server localhost:29092 \
+            --create \
+            --topic kafka.learning.alerts \
+            --partitions 1 \
+            --replication-factor 1
+
+## Listing Topics
+
+        ./kafka-topics.sh \
+            --bootstrap-server localhost:29092 \
+            --list
+
+## Getting details about a Topic
+
+        ./kafka-topics.sh \
+            --bootstrap-server localhost:29092 \\
+            --describe
+
+
+## Publishing Messages to Topics
+
+        ./kafka-console-producer.sh \
+            --bootstrap-server localhost:29092 \
+            --topic kafka.learning.tweets
+
+## Consuming Messages from Topics
+
+        ./kafka-console-consumer.sh \
+            --bootstrap-server localhost:29092 \
+            --topic kafka.learning.tweets \
+            --from-beginning
+
+## Deleting Topics
+
+        ./kafka-topics.sh \
+            --bootstrap-server localhost:29092 \
+            --delete \
+            --topic kafka.learning.alerts
+
+
+
+
+
