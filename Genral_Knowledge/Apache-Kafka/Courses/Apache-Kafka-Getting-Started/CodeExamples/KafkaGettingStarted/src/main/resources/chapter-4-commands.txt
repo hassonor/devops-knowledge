@@ -16,6 +16,11 @@
             --topic kafka.learning.orders \
             --describe
 
+      ./kafka-topics.sh \
+                --bootstrap-server localhost:29092 \
+                --topic kafka.usecase.students \
+                --describe
+
 ## Publishing Messages to Topics with keys
 
         ./kafka-console-producer.sh \

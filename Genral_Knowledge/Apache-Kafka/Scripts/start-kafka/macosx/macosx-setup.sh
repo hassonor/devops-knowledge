@@ -12,19 +12,19 @@ java -version
 # Should say something like openjdk version "11.0.10" 2021-01-19 LTS
 
 
-# Download Kafka at https://kafka.apache.org/downloads
+# Download Apache-Kafka at https://kafka.apache.org/downloads
 wget https://dlcdn.apache.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz
 
-# Extract Kafka
+# Extract Apache-Kafka
 tar -xvf kafka_2.13-3.1.0.tgz
 
 # Move the folder
 mv kafka_2.13-3.1.0 ~
 
-# Open the Kafka directory
+# Open the Apache-Kafka directory
 cd kafka_2.13-3.1.0
 
-# Try out a Kafka command
+# Try out a Apache-Kafka command
 bin/kafka-topics.sh
 
 # Edit .bash_profile
