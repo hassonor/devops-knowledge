@@ -54,3 +54,10 @@ ___
     * The cleaner checks for work every 15 seconds (`log.cleaner.backoff.ms`)
 
 ### Log Cleanup Delete
+
+* `log.retention.hours`
+    * Number of hours to keep data for (default is 168h - one week)
+    * Higher number means more disk space
+    * Lower number means that less data is retained (if your consumers are down for too long, they can miss data)
+    * Other parameters allowed: `log.retention.ms`, `log.retention.minutes` (smaller unit has precedence)
+* 
