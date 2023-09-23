@@ -60,4 +60,11 @@ ___
     * Higher number means more disk space
     * Lower number means that less data is retained (if your consumers are down for too long, they can miss data)
     * Other parameters allowed: `log.retention.ms`, `log.retention.minutes` (smaller unit has precedence)
-* 
+* `log.retention.bytes`:
+    * Max size in Bytes for each partition (default is -1 - infinite)
+    * Useful to keep the size of a log under a threshold
+* Use cases: two common pair of options:
+    1. One week of retention:
+        * `log.retention.hours=168` and `log.retention.bytes=-1`
+    2. Infinite time retention bounded by 500MB:
+        * `log.retention.ms=-1` and `log.retention.bytes=524288000`
