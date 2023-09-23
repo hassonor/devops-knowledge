@@ -68,3 +68,92 @@ ___
         * `log.retention.hours=168` and `log.retention.bytes=-1`
     2. Infinite time retention bounded by 500MB:
         * `log.retention.ms=-1` and `log.retention.bytes=524288000`
+
+### Log compaction theory
+
+___
+
+#### Log Cleanup Policy: Compact
+
+* Log compaction ensures that your log contains at least the last known value for a specific key within a partition
+* Very useful if we just require a SNAPSHOT instead of full history (such as for a data table in a database)
+* The idea is that we only keep the latest "update" for a key in our log
+
+#### Log Compaction: Example
+
+* Our topic is: `employee-salary`
+* We want to keep the most recent salary for our employees
+
+#### Log Compaction Guarantees
+
+* Any consumer that is reading from the tail of a log (most current data) will still see all the messages sent to the
+  topic
+* Ordering of messages it kept, log compaction only removes some messages, but does not re-order them
+* The offset of a message is immutable (it never changes). Offsets are just skipped if a message is missing
+* Deleted records can still be seen by consumers for a period of `delete.retention.ms` (default is 24 hours)
+
+#### Log Compaction Myth Busting
+
+* Id doesn't prevent you from pushing duplicate data to Kafka
+    * De-duplication is done after a segment is committed
+    * Your consumers will still read from tail as soon as the data arrives
+* It doesn't prevent you from reading duplicate data from Kafka
+    * Same points as above
+* Log Compaction can fail from time to time
+    * It is an optimization and it the compaction thread might crash
+    * Make sure you assign enough memory to it and that it gets triggered
+    * Restart Kafka if log compaction is broken
+* You can't trigger Log Compaction using an API call (for that moment)
+
+#### Log Compaction - How it Works
+
+* Log compaction `log.cleanup.policy=compact` is impacted by:
+    * `segment.ms (default 7 days)`: Max amount of time to wait to close active segment
+    * `segment.bytes (default 1G)`: Max size of a segment
+    * `min.compaction.lag.ms(default 0)`: how long to wait before a message can be compacted
+    * `delete.retention.ms(default 24 hours)`: wait before deleting data marked for compaction
+    * `min.cleanable.dirty.ratio(default 0.5)`: higher => less, more efficient cleaning. Lower => opposite
+
+### Unclean leader election
+
+___
+
+#### `unclean.leader.election.enable`
+
+* If all your In Sync Replicas go offline (but you still have out of sync replicas up), you have the following option:
+    * Wait for an ISR to come back online (default)
+    * Enable `unclean.leader.election.enable=true` and start producing to non ISR partitions
+* If you enable `unclean.leader.election.enable=true`, you improve availability, but you will lose data because other
+  messages on ISR will be discarded when they come back online and replicate data from the new leader.
+* Overall, this is a very dangerous setting, and its implications must be understood fully before enabling it.
+* Use cases include metrics collection, log collection, and other cases where data loss is somewhat acceptable, at the
+  trade-off of availability
+
+### Large message in Kafka
+
+___
+
+* `Kafka` has a default of 1 MB per message in topics, as a large message is considered inefficient and an antipattern
+* Two approaches to sending large messages:
+    1. Using an external store: store messages in `HDFS`, `Amazon S3`, `Google Cloud Storage`, etc. and send a reference
+       of that message to `Apache Kafka`
+    2. Modifying Kafka parameters: must change broker, producer and consumer settings
+
+#### Option 1: Large Messages using External Store
+
+* Store the large message (e.g., video, archive file, etc.) outside `Kafka`
+* Send a reference of that message to `Kafka`
+* Write custom code at the producer / consumer level to handle this pattern
+
+#### Option 2: Sending large messages in Kafka (ex: 10MB)
+
+* `Topic-wise, Kafka-side`, set max message size to 10MB:
+    * Broker side: modify `message.max.bytes`
+    * Topic side: modify `max.message.bytes`
+    * Warning: the settings have similar but different name; this is not a typo!
+* `Broker-wise`, set max replication fetches size to 10MB
+    * `replica.fetch.max.bytes=10485880` (in `server.properties`)
+* `Consumer-side`, must increase fetch size of the consumer will crash:
+    * `max.partition.fetch.bytes=10485880`
+* `Producer-side`, must increase the max request size
+    * `max.request.size=10485880`
